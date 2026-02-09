@@ -35,8 +35,8 @@ function Wordcloud({keywords}: {keywords: Keyword[]}) {
 
 function Word({keyword, position, size}: {keyword: Keyword; position: [number, number, number]; size: number}) {
     return (
-        <Billboard>
-            <Text position={position} scale={[size / 10, size / 10, size / 10]}>
+        <Billboard position={position}>
+            <Text scale={[size / 10, size / 10, size / 10]}>
                 {keyword.keyword}
             </Text>
         </Billboard>
