@@ -4,6 +4,13 @@ from server.schemas import AnalyzeRequest, AnalyzeResponse, ArticleExamplesRespo
 from server.services import crawl_article, extract_keywords, get_article_examples
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+)
 
 
 @app.get("/health")
