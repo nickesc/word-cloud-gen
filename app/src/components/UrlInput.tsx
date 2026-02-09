@@ -1,5 +1,6 @@
 import type {ChangeEvent, SubmitEvent} from "react";
 import {useState} from "react";
+import "./UrlInput.css";
 
 function UrlInput({onAnalyze, articles}: {onAnalyze: (url: string) => Promise<void>; articles: string[]}) {
     const [url, setUrl] = useState("");

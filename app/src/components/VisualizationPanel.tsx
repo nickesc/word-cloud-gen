@@ -3,6 +3,7 @@ import * as THREE from "three";
 import {Canvas} from "@react-three/fiber";
 import {Text, Billboard, OrbitControls} from "@react-three/drei";
 import {useRef, useMemo} from "react";
+import "./VisualizationPanel.css";
 
 function Wordcloud({keywords}: {keywords: Keyword[]}) {
     const groupRef = useRef<THREE.Group>(null);
@@ -36,9 +37,7 @@ function Wordcloud({keywords}: {keywords: Keyword[]}) {
 function Word({keyword, position, size}: {keyword: Keyword; position: [number, number, number]; size: number}) {
     return (
         <Billboard position={position}>
-            <Text scale={[size / 10, size / 10, size / 10]}>
-                {keyword.keyword}
-            </Text>
+            <Text scale={[size / 10, size / 10, size / 10]}>{keyword.keyword}</Text>
         </Billboard>
     );
 }

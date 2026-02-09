@@ -1,0 +1,28 @@
+#url-input-form {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+#url-input-form input {
+    flex: 4;
+}
+
+#url-input-form button {
+    flex: 1;
+}
+
+#url-input-form select {
+    flex: 2;
+}
+
