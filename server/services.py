@@ -7,8 +7,9 @@ nltk.download("stopwords")
 nltk.download("punkt_tab")
 
 
-async def crawl_article(url: str) -> str:
-    return extract(fetch_url(url))
+async def crawl_article(url: str) -> str | None:
+    article = fetch_url(url)
+    return extract(article) if article else None
 
 
 async def extract_keywords(text: str) -> list[str]:

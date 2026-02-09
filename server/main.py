@@ -17,6 +17,11 @@ async def analyze(request: AnalyzeRequest):
         raise HTTPException(status_code=400, detail="Invalid URL")
 
     article = await crawl_article(request.url)
+    if article is None:
+        raise HTTPException(
+            status_code=422,
+            detail="Could not extract article content from URL; page could not be processed.",
+        )
     keywords = await extract_keywords(article)
 
     return {"keywords": keywords}
