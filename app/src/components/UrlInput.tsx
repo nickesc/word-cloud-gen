@@ -4,10 +4,9 @@ import {useState} from "react";
 function UrlInput({onAnalyze}: {onAnalyze: (url: string) => Promise<void>}) {
     const [url, setUrl] = useState("");
 
-    function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+    async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
-        console.log(url);
-        onAnalyze(url);
+        await onAnalyze(url);
     }
 
     return (
