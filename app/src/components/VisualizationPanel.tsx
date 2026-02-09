@@ -1,7 +1,7 @@
 import type {Keyword} from "../types";
 import * as THREE from "three";
 import {Canvas} from "@react-three/fiber";
-import {Text, Billboard} from "@react-three/drei";
+import {Text, Billboard, OrbitControls} from "@react-three/drei";
 import {useRef, useMemo} from "react";
 
 function Wordcloud({keywords}: {keywords: Keyword[]}) {
@@ -45,6 +45,7 @@ function VisualizationPanel({keywords}: {keywords: Keyword[]}) {
         <section id="visualization-panel">
             <Canvas camera={{position: [0, 0, 15], fov: 55}}>
                 <Wordcloud keywords={keywords} />
+                <OrbitControls makeDefault target={[0, 0, 0]} enablePan enableZoom />
             </Canvas>
         </section>
     );

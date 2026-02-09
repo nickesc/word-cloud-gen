@@ -3,7 +3,6 @@ import {useState, useCallback, useEffect} from "react";
 import Header from "./components/Header";
 import UrlInput from "./components/UrlInput";
 import VisualizationPanel from "./components/VisualizationPanel";
-import ArticleSelector from "./components/ArticleSelector";
 import type {Keyword} from "./types";
 
 const API_BASE = "http://localhost:8127";
@@ -60,8 +59,7 @@ function App() {
             <Header />
             <main>
                 <VisualizationPanel keywords={keywords} />
-                <UrlInput onAnalyze={onAnalyze} />
-                <ArticleSelector articles={articles} />
+                <UrlInput onAnalyze={onAnalyze} articles={articles} />
             </main>
         </>
     );
