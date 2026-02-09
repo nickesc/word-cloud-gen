@@ -19,6 +19,7 @@ async def extract_keywords(text: str) -> list[Keyword]:
         return []
     rake.extract_keywords_from_text(text)
     ranked_phrases = rake.get_ranked_phrases_with_scores()
+    ranked_phrases = list(set(ranked_phrases))
     return [Keyword(score=score, keyword=phrase) for score, phrase in ranked_phrases]
 
 
