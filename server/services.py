@@ -1,5 +1,6 @@
 from trafilatura import fetch_url, extract
 from rake_nltk import Rake
+from server.schemas import Keyword
 
 import nltk
 
@@ -12,13 +13,13 @@ async def crawl_article(url: str) -> str | None:
     return extract(article) if article else None
 
 
-async def extract_keywords(text: str) -> list[tuple[float, str]]:
+async def extract_keywords(text: str) -> list[Keyword]:
     rake = Rake()
     if not text.strip():
         return []
     rake.extract_keywords_from_text(text)
     ranked_phrases = rake.get_ranked_phrases_with_scores()
-    return ranked_phrases
+    return [Keyword(score=score, keyword=phrase) for score, phrase in ranked_phrases]
 
 
 async def get_article_examples() -> list[str]:
