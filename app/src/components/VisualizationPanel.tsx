@@ -40,14 +40,11 @@ function Word({keyword, position}: {keyword: Keyword; position: [number, number,
     );
 }
 
-function VisualizationPanel({keywords, url}: {keywords: Keyword[]; url: string}) {
+function VisualizationPanel({keywords}: {keywords: Keyword[]}) {
     return (
         <section id="visualization-panel">
-            <Canvas camera={{position: [0, 0, 0]}}>
-                <mesh>
-                    <meshBasicMaterial color="red" />
-                    <Wordcloud keywords={keywords} />
-                </mesh>
+            <Canvas camera={{position: [0, 0, 15], fov: 55}}>
+                <Wordcloud keywords={keywords} />
             </Canvas>
         </section>
     );
