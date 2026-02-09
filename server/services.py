@@ -12,7 +12,7 @@ async def crawl_article(url: str) -> str | None:
     return extract(article) if article else None
 
 
-async def extract_keywords(text: str) -> list[str]:
+async def extract_keywords(text: str) -> list[tuple[float, str]]:
     rake = Rake()
     if not text.strip():
         return []
