@@ -26,16 +26,19 @@ function Wordcloud({keywords}: {keywords: Keyword[]}) {
                     key={`${k.keyword}-${k.score}`}
                     keyword={k}
                     position={[points[i * 3], points[i * 3 + 1], points[i * 3 + 2]]}
+                    size={k.score}
                 />
             ))}
         </group>
     );
 }
 
-function Word({keyword, position}: {keyword: Keyword; position: [number, number, number]}) {
+function Word({keyword, position, size}: {keyword: Keyword; position: [number, number, number]; size: number}) {
     return (
         <Billboard>
-            <Text position={position}>{keyword.keyword}</Text>
+            <Text position={position} scale={[size / 10, size / 10, size / 10]}>
+                {keyword.keyword}
+            </Text>
         </Billboard>
     );
 }
@@ -45,7 +48,7 @@ function VisualizationPanel({keywords}: {keywords: Keyword[]}) {
         <section id="visualization-panel">
             <Canvas camera={{position: [0, 0, 15], fov: 55}}>
                 <Wordcloud keywords={keywords} />
-                <OrbitControls makeDefault target={[0, 0, 0]} enablePan enableZoom />
+                <OrbitControls makeDefault target={[0, 0, 0]} />
             </Canvas>
         </section>
     );
