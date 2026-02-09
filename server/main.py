@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 from fastapi import FastAPI, HTTPException
 from server.schemas import AnalyzeRequest
-from server.services import crawl_article
+from server.services import crawl_article, extract_keywords
 
 app = FastAPI()
 
@@ -17,5 +17,6 @@ async def analyze(request: AnalyzeRequest):
         raise HTTPException(status_code=400, detail="Invalid URL")
 
     article = await crawl_article(request.url)
+    keywords = await extract_keywords(article)
 
-    return {"article": article}
+    return {"keywords": keywords}
