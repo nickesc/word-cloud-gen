@@ -47,6 +47,7 @@ function UrlInput({onAnalyze, articles}: {onAnalyze: (url: string) => Promise<vo
                 </select>
             </div>
             <button type="submit">Analyze</button>
+            <div id="controls-hint">Controls: drag to rotate, shift+drag to pan, scroll to zoom</div>
         </form>
     );
 }
