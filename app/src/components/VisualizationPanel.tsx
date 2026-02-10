@@ -5,17 +5,33 @@ import {Text, Billboard, OrbitControls} from "@react-three/drei";
 import {useRef, useMemo} from "react";
 import "./VisualizationPanel.css";
 
+function hashString(input: string): number {
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+        hash = (hash * 31 + input.charCodeAt(i)) | 0;
+    }
+    return Math.abs(hash);
+}
+
+function seeded01(seed: number): number {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+}
+
 function Wordcloud({keywords}: {keywords: Keyword[]}) {
     const groupRef = useRef<THREE.Group>(null);
 
     const points = useMemo(() => {
         const p = new Float32Array(keywords.length * 3);
+        const spread = 30;
+
         for (let i = 0; i < keywords.length; i++) {
-            const t = i * 2.399963229728653;
-            const radius = 1.2 + i * 0.06;
-            p[i * 3] = Math.cos(t) * radius; // X
-            p[i * 3 + 1] = (i - keywords.length / 2) * 0.08; // Y
-            p[i * 3 + 2] = Math.sin(t) * radius; // Z
+            const keyword = keywords[i];
+            const seed = hashString(`${keyword.keyword}:${keyword.score}:${i}`);
+
+            p[i * 3] = (seeded01(seed + 1) - 0.5) * spread; // X
+            p[i * 3 + 1] = (seeded01(seed + 2) - 0.5) * spread; // Y
+            p[i * 3 + 2] = (seeded01(seed + 3) - 0.5) * spread; // Z
         }
         return p;
     }, [keywords]);
@@ -37,7 +53,7 @@ function Wordcloud({keywords}: {keywords: Keyword[]}) {
 function Word({keyword, position, size}: {keyword: Keyword; position: [number, number, number]; size: number}) {
     return (
         <Billboard position={position}>
-            <Text scale={[size / 10, size / 10, size / 10]}>{keyword.keyword}</Text>
+            <Text scale={[size / 20, size / 20, size / 20]}>{keyword.keyword}</Text>
         </Billboard>
     );
 }
