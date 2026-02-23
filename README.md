@@ -100,3 +100,8 @@ liked to:
 - Build more robust loading/error states for API calls
 - Spend more time styling the word cloud to make each keyword stand out more
 - Continue to polish the overall UI/UX
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
+for details.
