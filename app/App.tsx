@@ -6,10 +6,10 @@ import VisualizationPanel from "./components/VisualizationPanel";
 import StatusIndicator from "./components/StatusIndicator";
 import type {Keyword} from "./types";
 
-const API_BASE = "http://localhost:8127";
+const API_BASE = "";
 
 function App() {
-    const [url, setUrl] = useState("");
+    const [, setUrl] = useState("");
     const [keywords, setKeywords] = useState<Keyword[]>([]);
     const [articles, setArticles] = useState<string[]>([]);
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
