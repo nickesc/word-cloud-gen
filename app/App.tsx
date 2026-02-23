@@ -6,7 +6,7 @@ import VisualizationPanel from "./components/VisualizationPanel";
 import StatusIndicator from "./components/StatusIndicator";
 import type {Keyword} from "./types";
 
-const API_BASE = "http://localhost:8127";
+const API_BASE = "";
 
 function App() {
     const [, setUrl] = useState("");

@@ -1,19 +1,14 @@
+from pathlib import Path
 from urllib.parse import urlparse
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from server.schemas import AnalyzeRequest, AnalyzeResponse, ArticleExamplesResponse
 from server.services import crawl_article, extract_keywords, get_article_examples
 
+DIST_DIR = Path(__file__).resolve().parent.parent / "dist"
+
 app = FastAPI()
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 @app.get("/health")
@@ -40,3 +35,7 @@ async def analyze(request: AnalyzeRequest):
 @app.get("/articles", response_model=ArticleExamplesResponse)
 async def get_examples():
     return ArticleExamplesResponse(articles=await get_article_examples())
+
+
+if DIST_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=DIST_DIR, html=True), name="static")
