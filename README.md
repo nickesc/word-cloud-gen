@@ -4,28 +4,9 @@
 
 A small interactive website that visualizes topics from a news article as a 3D word cloud.
 
-## Overview
-
-Backend:
-
-- Built in `Python` with `FastAPI` -- uses `trafilatura` to extract article text and `rake-nltk` to extract keywords.
-- `POST /analyze`: send with a JSON body containing a `url` field, returns a JSON response with a `keywords` field containing an array of objects with `score` and `keyword` fields.
-- `GET /articles`: returns a JSON response with an `articles` field containing an array of strings, each with a URL of a sample article.
-
-Frontend:
-
-- Built with `React`, uses `React Three Fiber` to render an interactiven3D word cloud.
-- Includes a text input for the user to enter a URL of an article to analyze
-- Also provides a dropdown menu with a few sample article URLs to choose from (pulled from the `GET /articles` endpoint)
-- Sends a `POST` request to the `POST /analyze` endpoint when the user clicks the "Analyze" button, and displays the results from the response in a 3D word cloud.
-- The created word cloud is interactive, with the ability to rotate, pan, and zoom using the mouse.
-- Word clouds are generated using a pseudo-random method to position the words in the 3D space based on a seed created from the keyword and its score; the size of each word is determined by its score.
-
-Built as a part of a take-home assessment for a Full Stack position.
-
 ## Dependencies
 
-Python packages used:
+**Backend:**
 
 - `fastapi`
 - `uvicorn[standard]`
@@ -33,32 +14,62 @@ Python packages used:
 - `rake-nltk`
 - `nltk`
 
-Frontend packages used:
+**Frontend:**
 
 - `react`
 - `three`
 - `@react-three/fiber`
 - `@react-three/drei`
 
-## Running the project
 
-From the root of the project, run:
+## How It Works
+
+Paste a news article URL (or pick from the sample dropdown) and hit **Analyze**. The backend scrapes the article text, runs keyword extraction, and returns scored keywords. The frontend renders them as an interactive 3D word cloud where each word's size reflects its relevance score.
+
+Rotate, pan, and zoom the word cloud with the mouse. Word positions are pseudo-randomly seeded from each keyword and its score, so the same article always produces the same layout.
+
+## API
+
+#### `POST /analyze`
+
+Accepts a URL and returns extracted keywords with relevance scores.
+
+```jsonc
+// Request
+{ "url": "https://example.com/article" }
+
+// Response
+{ "keywords": [{ "keyword": "...", "score": 12.5 }, ...] }
+```
+
+#### `GET /articles`
+
+Returns a list of sample article URLs.
+
+```jsonc
+// Response
+{ "articles": ["https://...", ...] }
+```
+
+## Running the Project
+
+From the project root:
 
 ```bash
 ./start.sh
 ```
 
-This will start the backend and frontend servers. The frontend will be available at `http://localhost:5173`, and the backend will be available at `http://localhost:8127`. Frontend server logs will be written to `logs/frontend.log`, while backend logs will be displayed in the terminal.
+This creates a virtual environment, installs all dependencies, builds the frontend, and starts the server at `http://localhost:8127`.
 
 ## Notes
 
 I had a lot of fun building this project, and I really enjoyed learning the libraries. This was the first time I had used any version of `three.js`, and while I found it challenging at first, as I got more comfortable with what I was doing I found that it was actually very interesting to work with.
 
-There is a lot more that I feel I could do in terms of polish, but for a project made in a couple hours I am happy to leave it here. If I'd had more time, I would have liked to:
+There is a lot more that I feel I could do in terms of polish, but for a project made in a couple hours I am happy to leave it here. With more time, I would have liked to:
 
-- Add a method to retrieve a list of sample articles instead of hardcoding them
-- Spent more time looking into the tokenizer in `nltk` to improve the quality of the keywords extracted
-- Added a 3D compass to the visualization to help orient the user
-- A more robust loading/error handling system for API calls to the backend
+- Retrieve sample articles dynamically instead of hardcoding them
+- Tune the NLTK tokenizer for better keyword quality
+- Add a 3D compass to help orient the user
+- Build more robust loading/error states for API calls
 - Spend more time styling the word cloud to make each keyword stand out more
-- Continue to polish the UI/UX of the project
+- Continue to polish the overall UI/UX
