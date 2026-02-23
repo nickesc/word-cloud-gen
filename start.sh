@@ -5,4 +5,7 @@ pip3 install -r requirements.txt
 npm install
 npm run build
 
-uvicorn server.main:app --port 8127
+export PORT=8127
+export DEV=true
+
+uvicorn server.main:app --port $PORT --reload

@@ -1,3 +1,4 @@
+from os import getenv
 from pathlib import Path
 from urllib.parse import urlparse
 from fastapi import FastAPI, HTTPException
@@ -6,9 +7,23 @@ from fastapi.staticfiles import StaticFiles
 from server.schemas import AnalyzeRequest, AnalyzeResponse, ArticleExamplesResponse
 from server.services import crawl_article, extract_keywords, get_article_examples
 
+DEV = getenv("DEV", "false").lower() == "true"
+
 DIST_DIR = Path(__file__).resolve().parent.parent / "dist"
 
 app = FastAPI()
+
+if DEV:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://localhost:" + getenv("PORT", "8127"),
+            "http://127.0.0.1:" + getenv("PORT", "8127"),
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
 @app.get("/health")
