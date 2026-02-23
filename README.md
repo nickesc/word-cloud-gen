@@ -2,7 +2,10 @@
 
 ###### By Nick Escobar [GitHub](https://github.com/nickesc) | [Website](https://nickesc.github.io)
 
-A small interactive website that visualizes topics from a news article as a 3D word cloud.
+A small interactive website that visualizes topics from a news article as a 3D
+word cloud.
+
+> **[Try the live demo](https://word-cloud.batcomputer.xyz)**
 
 ## Dependencies
 
@@ -21,12 +24,16 @@ A small interactive website that visualizes topics from a news article as a 3D w
 - `@react-three/fiber`
 - `@react-three/drei`
 
-
 ## How It Works
 
-Paste a news article URL (or pick from the sample dropdown) and hit **Analyze**. The backend scrapes the article text, runs keyword extraction, and returns scored keywords. The frontend renders them as an interactive 3D word cloud where each word's size reflects its relevance score.
+Paste a news article URL (or pick from the sample dropdown) and hit **Analyze**.
+The backend scrapes the article text, runs keyword extraction, and returns
+scored keywords. The frontend renders them as an interactive 3D word cloud where
+each word's size reflects its relevance score.
 
-Rotate, pan, and zoom the word cloud with the mouse. Word positions are pseudo-randomly seeded from each keyword and its score, so the same article always produces the same layout.
+Rotate, pan, and zoom the word cloud with the mouse. Word positions are
+pseudo-randomly seeded from each keyword and its score, so the same article
+always produces the same layout.
 
 ## API
 
@@ -53,19 +60,39 @@ Returns a list of sample article URLs.
 
 ## Running the Project
 
-From the project root:
+To run the project locally:
 
 ```bash
-./start.sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+
+npm install
+npm run build
+
+export PORT=8127
+export DEV=true
+
+uvicorn server.main:app --port $PORT --reload
 ```
 
-This creates a virtual environment, installs all dependencies, builds the frontend, and starts the server at `http://localhost:8127`.
+This creates a virtual environment, installs all dependencies, builds the
+frontend, and starts the server at `http://localhost:8127`.
+
+A demo of the service is currently deployed at
+[word-cloud.batcomputer.xyz](https://word-cloud.batcomputer.xyz), but uptime is
+not guaranteed.
 
 ## Notes
 
-I had a lot of fun building this project, and I really enjoyed learning the libraries. This was the first time I had used any version of `three.js`, and while I found it challenging at first, as I got more comfortable with what I was doing I found that it was actually very interesting to work with.
+I had a lot of fun building this project, and I really enjoyed learning the
+libraries. This was the first time I had used any version of `three.js`, and
+while I found it challenging at first, as I got more comfortable with what I was
+doing I found that it was actually very interesting to work with.
 
-There is a lot more that I feel I could do in terms of polish, but for a project made in a couple hours I am happy to leave it here. With more time, I would have liked to:
+There is a lot more that I feel I could do in terms of polish, but for a project
+made in a couple hours I am happy to leave it here. With more time, I would have
+liked to:
 
 - Retrieve sample articles dynamically instead of hardcoding them
 - Tune the NLTK tokenizer for better keyword quality
